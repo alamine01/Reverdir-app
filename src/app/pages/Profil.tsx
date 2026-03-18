@@ -1,4 +1,5 @@
 import { User, TreeDeciduous, Cloud, HandHeart, Shovel, Coins, Lock, ChevronRight, Users as TeamIcon, FileText } from 'lucide-react';
+import { toast } from 'sonner';
 
 // Types
 interface UserStats {
@@ -194,7 +195,10 @@ export function Profil() {
             <h2 className="text-lg font-semibold text-gray-900">
               Vos dernières actions
             </h2>
-            <button className="text-sm text-[#2E7D32] font-medium hover:underline">
+            <button 
+              onClick={() => toast.info("Affichage de votre historique complet d'impact...")}
+              className="text-sm text-[#2E7D32] font-medium hover:underline"
+            >
               Voir tout
             </button>
           </div>
@@ -297,15 +301,24 @@ export function Profil() {
         {/* Section Paramètres (optionnelle) */}
         <div className="px-6 mb-6">
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-            <button className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors border-b border-gray-100">
+            <button 
+              onClick={() => toast.info("Ouverture des paramètres du profil...")}
+              className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors border-b border-gray-100"
+            >
               <span className="text-sm font-medium text-gray-900">Modifier le profil</span>
               <ChevronRight className="w-5 h-5 text-gray-400" />
             </button>
-            <button className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors border-b border-gray-100">
+            <button 
+              onClick={() => toast.info("Gestion des notifications...")}
+              className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors border-b border-gray-100"
+            >
               <span className="text-sm font-medium text-gray-900">Notifications</span>
               <ChevronRight className="w-5 h-5 text-gray-400" />
             </button>
-            <button className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <button 
+              onClick={() => toast.info("Accès aux paramètres globaux...")}
+              className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            >
               <span className="text-sm font-medium text-gray-900">Paramètres</span>
               <ChevronRight className="w-5 h-5 text-gray-400" />
             </button>

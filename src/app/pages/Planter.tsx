@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Sprout, Trophy, MapPin, Calendar, Users, ArrowRight, Leaf, ExternalLink, FileText, TrendingUp } from 'lucide-react';
+import { toast } from 'sonner';
 
 // Types
 interface Tab {
@@ -132,6 +133,17 @@ const petitions: Petition[] = [
 
 export function Planter() {
   const [activeTab, setActiveTab] = useState('defis');
+  const [petitionsData, setPetitionsData] = useState(petitions);
+
+  const handleSignPetition = (id: number) => {
+    setPetitionsData(prev => prev.map(p => {
+      if (p.id === id) {
+        toast.success("Votre signature a été enregistrée avec succès !");
+        return { ...p, signatures: p.signatures + 1 };
+      }
+      return p;
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-white pb-20">
@@ -240,7 +252,10 @@ export function Planter() {
               </div>
             </div>
 
-            <button className="w-full bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-semibold py-3.5 px-6 rounded-xl shadow-md transition-all hover:shadow-lg flex items-center justify-center gap-2">
+            <button 
+              onClick={() => toast.success("Merci pour ce don ! 300 points ajoutés à l'équipe de Montpellier.")}
+              className="w-full bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-semibold py-3.5 px-6 rounded-xl shadow-md transition-all hover:shadow-lg flex items-center justify-center gap-2"
+            >
               <span>Financer (15€)</span>
               <ArrowRight className="w-5 h-5" />
             </button>
@@ -312,7 +327,10 @@ export function Planter() {
                   )}
 
                   {/* Bouton */}
-                  <button className="w-full bg-white hover:bg-gray-50 text-gray-900 font-semibold py-3 px-4 rounded-xl border border-gray-200 shadow-sm transition-all mt-auto flex items-center justify-center gap-2">
+                  <button 
+                    onClick={() => toast.success(workshop.buttonText === "S'inscrire" ? `Inscription réussie pour ${workshop.title} !` : `Ouverture des détails pour ${workshop.title}...`)}
+                    className="w-full bg-white hover:bg-gray-50 text-gray-900 font-semibold py-3 px-4 rounded-xl border border-gray-200 shadow-sm transition-all mt-auto flex items-center justify-center gap-2"
+                  >
                     <span>{workshop.buttonText}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
@@ -336,7 +354,10 @@ export function Planter() {
                 <p className="text-xs text-gray-600 leading-relaxed mb-3">
                   Découvrez les espèces adaptées au climat méditerranéen : Pin d'Alep, Micocoulier, Chêne vert, Arbousier...
                 </p>
-                <button className="flex items-center gap-1.5 text-xs font-medium text-[#2E7D32] hover:underline">
+                <button 
+                  onClick={() => toast.info("Ouverture du catalogue des essences locales...")}
+                  className="flex items-center gap-1.5 text-xs font-medium text-[#2E7D32] hover:underline"
+                >
                   <span>Voir le catalogue</span>
                   <ExternalLink className="w-3 h-3" />
                 </button>
@@ -381,7 +402,7 @@ export function Planter() {
 
             <div className="px-6 mb-6">
               <div className="space-y-4">
-            {petitions.map((petition) => {
+            {petitionsData.map((petition) => {
               const progressPercentage = (petition.signatures / petition.goal) * 100;
               return (
                 <div
@@ -435,7 +456,10 @@ export function Planter() {
                   </div>
 
                   {/* Bouton */}
-                  <button className="w-full bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition-all hover:shadow-md flex items-center justify-center gap-2">
+                  <button 
+                    onClick={() => handleSignPetition(petition.id)}
+                    className="w-full bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition-all hover:shadow-md flex items-center justify-center gap-2"
+                  >
                     <FileText className="w-4 h-4" />
                     <span>Signer la pétition</span>
                   </button>

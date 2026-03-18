@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Leaf, Cloud, Trees, Sprout, Globe, BookOpen, ExternalLink, Trash2, Recycle } from 'lucide-react';
+import { toast } from 'sonner';
 
 // Types
 interface Tab {
@@ -169,7 +170,10 @@ export function Impact() {
                         </div>
 
                         {/* Bouton en bas */}
-                        <button className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:underline self-start">
+                        <button 
+                          onClick={() => toast.info(`L'article "${card.title}" sera bientôt disponible !`)}
+                          className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:underline self-start"
+                        >
                           <BookOpen className="w-4 h-4" />
                           Lire l'article complet
                           <ExternalLink className="w-3 h-3" />

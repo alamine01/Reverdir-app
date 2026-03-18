@@ -1,7 +1,17 @@
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, Calculator, Users as UsersIcon, Leaf as LeafIcon, X } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import logo from '@/assets/bd9c242629bff985268a8aaaaaa8d8d2eef0be12.png';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/app/components/ui/dialog";
 
 // Mock data pour les émissions sur 7 jours
 const emissionsData = [
@@ -340,13 +350,75 @@ export function Home() {
           </div>
         </div>
 
-        {/* 5. Bouton principal CTA */}
-        <button className="w-full bg-[#2E7D32] text-white py-4 rounded-full font-medium text-lg mb-6 hover:bg-[#1B5E20] transition-colors shadow-lg shadow-[#2E7D32]/20">
-          Agir maintenant
-        </button>
+        {/* 5. Bouton principal CTA avec Modal */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <button className="w-full bg-[#2E7D32] text-white py-4 rounded-full font-medium text-lg mb-6 hover:bg-[#1B5E20] transition-colors shadow-lg shadow-[#2E7D32]/20">
+              Agir maintenant
+            </button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-2xl text-[#2E7D32]">Agir pour la planète</DialogTitle>
+              <DialogDescription>
+                Choisissez comment vous souhaitez contribuer aujourd'hui.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <button 
+                onClick={() => toast.info("Calculateur d'empreinte en cours de chargement...")}
+                className="flex items-center gap-4 p-4 rounded-2xl bg-blue-50 border border-blue-100 hover:bg-blue-100 transition-colors text-left"
+              >
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white">
+                  <Calculator className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-900">Calculer mon empreinte</h4>
+                  <p className="text-xs text-blue-700">Comprendre votre impact réel</p>
+                </div>
+              </button>
+              
+              <button 
+                onClick={() => toast.info("Recherche des chantiers participatifs...")}
+                className="flex items-center gap-4 p-4 rounded-2xl bg-green-50 border border-green-100 hover:bg-green-100 transition-colors text-left"
+              >
+                <div className="w-12 h-12 bg-[#2E7D32] rounded-full flex items-center justify-center text-white">
+                  <UsersIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-green-900">Rejoindre un chantier</h4>
+                  <p className="text-xs text-green-700">Participer physiquement à une plantation</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => toast.info("Ouverture du formulaire de don...")}
+                className="flex items-center gap-4 p-4 rounded-2xl bg-orange-50 border border-orange-100 hover:bg-orange-100 transition-colors text-left"
+              >
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white">
+                  <LeafIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-orange-900">Financer une forêt</h4>
+                  <p className="text-xs text-orange-700">Soutenir des projets de reforestation</p>
+                </div>
+              </button>
+            </div>
+            <div className="flex justify-center">
+              <DialogClose asChild>
+                <button className="text-sm text-gray-400 hover:text-gray-600 font-medium">
+                  Plus tard
+                </button>
+              </DialogClose>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* 6. Carte secondaire */}
-        <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+        <div 
+          onClick={() => toast.info("Chargement des options de reforestation...")}
+          className="bg-gray-50 rounded-2xl p-6 border border-gray-100 cursor-pointer hover:bg-gray-100 transition-colors"
+        >
           <h3 className="text-base font-semibold text-gray-800 mb-2">
             Passez à l'action
           </h3>

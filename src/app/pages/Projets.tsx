@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MapPin, X, TrendingUp, ChevronRight } from 'lucide-react';
+import { toast } from 'sonner';
 import franceMapImg from '@/assets/43fe1f5b31aa5d80a299ec3da8432d0ccdb15610.png';
 
 // Types - Page des projets de reforestation
@@ -248,7 +249,10 @@ export function Projets() {
           <div className="px-6 mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Projets près de chez vous</h2>
-              <button className="text-sm text-[#2E7D32] font-medium hover:underline">
+              <button 
+                onClick={() => toast.info("Affichage de tous les projets à proximité...")}
+                className="text-sm text-[#2E7D32] font-medium hover:underline"
+              >
                 Voir tout
               </button>
             </div>
@@ -391,6 +395,7 @@ export function Projets() {
               <div className="flex gap-3">
                 <button
                   disabled={!selectedProject.available}
+                  onClick={() => toast.success(`Merci de votre participation au projet ${selectedProject.name} !`)}
                   className={`flex-1 py-3.5 rounded-full font-medium text-base transition-colors ${
                     selectedProject.available
                       ? 'bg-[#2E7D32] text-white hover:bg-[#1B5E20] shadow-lg shadow-[#2E7D32]/20'
@@ -401,6 +406,7 @@ export function Projets() {
                 </button>
                 <button
                   disabled={!selectedProject.available}
+                  onClick={() => toast.success(`Ouverture de la fenêtre de financement pour ${selectedProject.name}...`)}
                   className={`flex-1 py-3.5 rounded-full font-medium text-base transition-colors ${
                     selectedProject.available
                       ? 'bg-white text-[#2E7D32] border-2 border-[#2E7D32] hover:bg-[#2E7D32]/5'
